@@ -11,6 +11,7 @@
 #include "remote.h"
 #include "sdkconfig.h"
 #include "wifi.h"
+#include "wifi_manager.cpp"
 
 static const char* TAG = "main";
 
@@ -32,10 +33,12 @@ void app_main(void) {
   esp_register_shutdown_handler(&display_shutdown);
 
   // Setup WiFi.
-  if (wifi_initialize(TIDBYT_WIFI_SSID, TIDBYT_WIFI_PASSWORD)) {
-    ESP_LOGE(TAG, "failed to initialize WiFi");
-    return;
-  }
+  WiFiManager wm;
+  wm.autoConnect();
+  // if (wifi_initialize(TIDBYT_WIFI_SSID, TIDBYT_WIFI_PASSWORD)) {
+  //   ESP_LOGE(TAG, "failed to initialize WiFi");
+  //   return;
+  // }
   esp_register_shutdown_handler(&wifi_shutdown);
 
   for (;;) {
