@@ -18,7 +18,7 @@
 #define LAT 19
 #define OE 32
 #define CLK 33
-#endif
+
 
 static MatrixPanel_I2S_DMA *_matrix;
 
@@ -47,13 +47,18 @@ int display_initialize() {
   _matrix = new MatrixPanel_I2S_DMA(mxconfig);
 
   // Set brightness and clear the screen.
-  _matrix->setBrightness8(TIDBYT_DEFAULT_BRIGHTNESS);
   if (!_matrix->begin()) {
     return 1;
   }
+  ESP_LOGI("DISPLAY", "setting brightness");
+  _matrix->setBrightness8(TIDBYT_DEFAULT_BRIGHTNESS);
   _matrix->fillScreenRGB888(0, 0, 0);
 
   return 0;
+}
+
+void display_set_brightness(int b){
+  _matrix->setBrightness8(b);
 }
 
 void display_shutdown() {

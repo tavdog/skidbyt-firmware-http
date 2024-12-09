@@ -15,12 +15,29 @@
 #include "wifi.h"
 
 static const char* TAG = "main";
-
+char brightness_url[256];
 void _on_touch() {
   ESP_LOGI(TAG, "Touch detected");
   audio_play(ASSET_LAZY_DADDY_MP3, ASSET_LAZY_DADDY_MP3_LEN);
 }
 
+void update_brightness(void *arg) {
+  while (1) {
+    // remote_get the brightness_url
+    size_t len;
+    char* b;
+    if (remote_get(brightness_url, &b, &len)) {
+      ESP_LOGE(TAG, "Failed to get brightness");
+    } else {
+      int bi = atoi(b);
+      ESP_LOGI(TAG, "Got Brightness (%d)", bi);
+      if (bi > -1 && bi < 100) {
+        display_set_brightness(bi);
+      }
+    }
+    vTaskDelay(pdMS_TO_TICKS(60000));  // 1
+  }
+}
 void app_main(void) {
   ESP_LOGI(TAG, "Hello world!");
 
@@ -46,19 +63,19 @@ void app_main(void) {
   esp_register_shutdown_handler(&wifi_shutdown);
 
   char url[256] = TIDBYT_REMOTE_URL;
-  char new_url[256];
+  
 
   // Replace "next" with "brightness"
   char* replace = strstr(url, "next");
   if (replace) {
-    snprintf(new_url, sizeof(new_url), "%.*sbrightness%s", (int)(replace - url),
+    snprintf(brightness_url, sizeof(brightness_url), "%.*sbrightness%s", (int)(replace - url),
              url, replace + strlen("next"));
-    ESP_LOGI("URL", "Updated URL: %s", new_url);
+    // ESP_LOGI("URL", "Updated URL: %s", brightness_url);
   } else {
     ESP_LOGW("URL", "Keyword 'next' not found in URL.");
   }
 
-  
+  xTaskCreate(update_brightness, "get_brightness", 2048, NULL, 10, NULL);
 
   for (;;) {
     uint8_t* webp;
@@ -77,8 +94,5 @@ void app_main(void) {
     #else
     vTaskDelay(pdMS_TO_TICKS(10000));
     #endif
-
-
-    
   }
 }
