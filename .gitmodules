@@ -1,16 +1,16 @@
-[submodule "lib/HUB75/ESP32-HUB75-MatrixPanel-I2S-DMA"]
-	path = lib/HUB75/ESP32-HUB75-MatrixPanel-I2S-DMA
-	url = https://github.com/tidbyt/ESP32-HUB75-MatrixPanel-I2S-DMA.git
-[submodule "lib/webp/libwebp"]
-	path = lib/webp/libwebp
-	url = https://github.com/webmproject/libwebp.git
-[submodule "components/esp-audio-player"]
-	path = components/esp-audio-player
-	url = https://github.com/chmorgan/esp-audio-player.git
-[submodule "components/esp-libhelix-mp3"]
-	path = components/esp-libhelix-mp3
-	url = https://github.com/chmorgan/esp-libhelix-mp3.git
-[submodule "lib/HUB75"]
-	path = lib/HUB75
-	url = https://github.com/tidbyt/ESP32-HUB75-MatrixPanel-I2S-DMA.git
-	branch = rohan/esp-idf-5
+; [submodule "lib/HUB75/ESP32-HUB75-MatrixPanel-I2S-DMA"]
+; 	path = lib/HUB75/ESP32-HUB75-MatrixPanel-I2S-DMA
+; 	url = https://github.com/tidbyt/ESP32-HUB75-MatrixPanel-I2S-DMA.git
+; [submodule "lib/webp/libwebp"]
+; 	path = lib/webp/libwebp
+; 	url = https://github.com/webmproject/libwebp.git
+; [submodule "components/esp-audio-player"]
+; 	path = components/esp-audio-player
+; 	url = https://github.com/chmorgan/esp-audio-player.git
+; [submodule "components/esp-libhelix-mp3"]
+; 	path = components/esp-libhelix-mp3
+; 	url = https://github.com/chmorgan/esp-libhelix-mp3.git
+; [submodule "lib/HUB75"]
+; 	path = lib/HUB75
+; 	url = https://github.com/tidbyt/ESP32-HUB75-MatrixPanel-I2S-DMA.git
+; 	branch = rohan/esp-idf-5
