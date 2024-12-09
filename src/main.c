@@ -21,11 +21,10 @@ void _on_touch() {
   audio_play(ASSET_LAZY_DADDY_MP3, ASSET_LAZY_DADDY_MP3_LEN);
 }
 
-void update_brightness(void *arg) {
-  while (1) {
+void update_brightness() {
     // remote_get the brightness_url
-    size_t len;
-    char* b;
+    static size_t len;
+    static char* b;
     if (remote_get(brightness_url, &b, &len)) {
       ESP_LOGE(TAG, "Failed to get brightness");
     } else {
@@ -35,9 +34,8 @@ void update_brightness(void *arg) {
         display_set_brightness(bi);
       }
     }
-    vTaskDelay(pdMS_TO_TICKS(60000));  // 1
-  }
 }
+
 void app_main(void) {
   ESP_LOGI(TAG, "Hello world!");
 
@@ -74,10 +72,9 @@ void app_main(void) {
   } else {
     ESP_LOGW("URL", "Keyword 'next' not found in URL.");
   }
-
-  xTaskCreate(update_brightness, "get_brightness", 2048, NULL, 10, NULL);
-
+  update_brightness();
   for (;;) {
+    static int count = 0;
     uint8_t* webp;
     size_t len;
     if (remote_get(TIDBYT_REMOTE_URL, &webp, &len)) {
@@ -94,5 +91,11 @@ void app_main(void) {
     #else
     vTaskDelay(pdMS_TO_TICKS(10000));
     #endif
+
+    if (count % 6 == 0) {
+      update_brightness();
+    }
+
+    count++;
   }
 }
