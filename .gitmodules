@@ -6,11 +6,11 @@
 	url = https://github.com/webmproject/libwebp.git
 [submodule "components/esp-audio-player"]
 	path = components/esp-audio-player
-	url = git@github.com:chmorgan/esp-audio-player.git
+	url = https://github.com/chmorgan/esp-audio-player.git
 [submodule "components/esp-libhelix-mp3"]
 	path = components/esp-libhelix-mp3
-	url = git@github.com:chmorgan/esp-libhelix-mp3.git
+	url = https://github.com/chmorgan/esp-libhelix-mp3.git
 [submodule "lib/HUB75"]
 	path = lib/HUB75
-	url = git@github.com:tidbyt/ESP32-HUB75-MatrixPanel-I2S-DMA.git
+	url = https://github.com/tidbyt/ESP32-HUB75-MatrixPanel-I2S-DMA.git
 	branch = rohan/esp-idf-5
