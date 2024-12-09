@@ -2,31 +2,12 @@
 
 #include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>
 
-
-#ifdef TIDBYT_GEN2
-#define R1 5
-#define G1 23
-#define BL1 4
-#define R2 2
-#define G2 22
-#define BL2 32
-
-#define CH_A 25
-#define CH_B 21
-#define CH_C 26
-#define CH_D 19
-#define CH_E -1  // assign to pin 14 if using more than two panels
-
-#define LAT 18
-#define OE 27
-#define CLK 15
-#else
-#define R1 21
-#define G1 2
-#define BL1 22
-#define R2 23
-#define G2 4
-#define BL2 27
+#define R1 2
+#define G1 22
+#define BL1 21
+#define R2 4
+#define G2 27
+#define BL2 23
 
 #define CH_A 26
 #define CH_B 5
@@ -66,7 +47,7 @@ int display_initialize() {
   _matrix = new MatrixPanel_I2S_DMA(mxconfig);
 
   // Set brightness and clear the screen.
-  _matrix->setBrightness8(DISPLAY_DEFAULT_BRIGHTNESS);
+  _matrix->setBrightness8(TIDBYT_DEFAULT_BRIGHTNESS);
   if (!_matrix->begin()) {
     return 1;
   }
