@@ -15,7 +15,7 @@ struct remote_state {
   size_t max;
 };
 
-int8_t brightness_value = -1;
+int brightness_value = -1;
 
 #define HTTP_BUFFER_SIZE_MAX 512 * 1024
 #define HTTP_BUFFER_SIZE_DEFAULT 32 * 1024
@@ -44,8 +44,8 @@ static esp_err_t _httpCallback(esp_http_client_event_t* event) {
                event->header_value);
       // Check for the specific header key
       if (strcmp(event->header_key, "Tronbyt-Brightness") == 0) {
-        brightness_value = (uint8_t)atoi(event->header_value);
-        // SP_LOGI(TAG, "Tronbyt-Brightness value: %i", brightness_value);
+        brightness_value = (int)atoi(event->header_value);
+        ESP_LOGI(TAG, "Tronbyt-Brightness value: %i", brightness_value);
       }
       break;
 
@@ -108,7 +108,7 @@ static esp_err_t _httpCallback(esp_http_client_event_t* event) {
   return err;
 }
 
-int remote_get(const char* url, uint8_t** buf, size_t* len, int8_t* b_int) {
+int remote_get(const char* url, uint8_t** buf, size_t* len, int* b_int) {
   // State for processing the response
   struct remote_state state = {
       .buf = malloc(HTTP_BUFFER_SIZE_DEFAULT),
